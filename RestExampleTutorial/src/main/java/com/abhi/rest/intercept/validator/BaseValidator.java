@@ -1,4 +1,4 @@
-package com.abhi.example.validator;
+package com.abhi.rest.intercept.validator;
 
 public interface BaseValidator {
 

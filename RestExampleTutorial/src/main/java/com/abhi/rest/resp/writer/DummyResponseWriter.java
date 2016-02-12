@@ -1,4 +1,4 @@
-package com.abhi.example;
+package com.abhi.rest.resp.writer;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -14,12 +14,10 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 @Produces("application/json")
-public class DummyWriter implements MessageBodyWriter<Integer> {
+public class DummyResponseWriter implements MessageBodyWriter<Integer> {
 
 	@Override
 	public long getSize(Integer arg0, Class<?> arg1, Type arg2, Annotation[] arg3, MediaType arg4) {
-		// TODO Auto-generated method stub
-//		return String.valueOf(arg0).getBytes().length;
 		return -1;
 	}
 
@@ -37,12 +35,5 @@ public class DummyWriter implements MessageBodyWriter<Integer> {
 		System.out.println(arg0);
 		arg6.write(String.valueOf(arg0).getBytes());
 
-	}
-	private byte[] intToByteArray(int value) {
-	    return new byte[] {
-	            (byte)(value >>> 24),
-	            (byte)(value >>> 16),
-	            (byte)(value >>> 8),
-	            (byte)value};
 	}
 }

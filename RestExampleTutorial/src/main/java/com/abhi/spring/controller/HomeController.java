@@ -1,4 +1,4 @@
-package com.abhi.example;
+package com.abhi.spring.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

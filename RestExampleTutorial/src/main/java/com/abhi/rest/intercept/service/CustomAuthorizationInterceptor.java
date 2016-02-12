@@ -1,4 +1,4 @@
-package com.abhi.example.interceptor;
+package com.abhi.rest.intercept.service;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.ext.Provider;
@@ -10,25 +10,24 @@ import org.jboss.resteasy.spi.Failure;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.interception.PostProcessInterceptor;
 import org.jboss.resteasy.spi.interception.PreProcessInterceptor;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
-import com.abhi.example.validator.BaseValidator;
-import com.abhi.example.validator.CustomValidator;
-import com.abhi.example.validator.TestValidator;
+import com.abhi.rest.intercept.annotation.CustomValidator;
+import com.abhi.rest.intercept.annotation.HighestPrecedence;
+import com.abhi.rest.intercept.validator.BaseValidator;
 
+//@Precedence("HIGHEST_PRECEDENCE")
 @Provider
+@HighestPrecedence
 @ServerInterceptor
-public class CustomerInterceptor implements PreProcessInterceptor, PostProcessInterceptor, ApplicationContextAware{
-
+public class CustomAuthorizationInterceptor implements PreProcessInterceptor, PostProcessInterceptor{
 	ApplicationContext ctx = null;
 	
-	@Override
-	public void setApplicationContext(ApplicationContext arg0)
-			throws BeansException {
-		this.ctx = arg0;
-	}
+//	@Override
+//	public void setApplicationContext(ApplicationContext arg0)
+//			throws BeansException {
+//		this.ctx = arg0;
+//	}
 
 	@Override
 	public void postProcess(ServerResponse arg0) {
@@ -46,6 +45,7 @@ public class CustomerInterceptor implements PreProcessInterceptor, PostProcessIn
 			
 			 try {
 				validator.newInstance().validate();
+				
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

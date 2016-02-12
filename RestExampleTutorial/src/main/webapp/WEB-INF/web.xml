@@ -9,6 +9,33 @@
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
 	
+	
+	<!-- 
+	By Default RESTEasy precedences are
+	SECURITY
+    HEADER_DECORATOR
+    ENCODER
+    REDIRECT
+    DECODER
+    
+    The following context param registers a custom precedence in RESTEasy Runtime
+	resteasy.interceptor.before.precedence would place our custom precedence HIGHEST_PRECEDENCE before SECURITY
+		 
+	The modified RESTEasy precedences would be
+    HIGHEST_PRECEDENCE
+    SECURITY
+    HEADER_DECORATOR
+    ENCODER
+    REDIRECT
+    DECODER
+    -->
+	<context-param>
+        <param-name>resteasy.interceptor.before.precedence</param-name>
+        <param-value>SECURITY : HIGHEST_PRECEDENCE</param-value>
+    </context-param>
+    
+   
+	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

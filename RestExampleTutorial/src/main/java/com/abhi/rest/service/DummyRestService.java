@@ -1,4 +1,4 @@
-package com.abhi.example;
+package com.abhi.rest.service;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
@@ -9,11 +9,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.abhi.example.validator.CustomValidator;
-import com.abhi.example.validator.TestValidator;
+import com.abhi.rest.intercept.annotation.CustomValidator;
+import com.abhi.rest.intercept.validator.AuthorizationValidator;
 @Path("/rest")
-@RolesAllowed("ADMIN")
-public class DummyRest {
+//@RolesAllowed("ADMIN")
+public class DummyRestService {
 	
 	@GET
 	@Path("/messageInt")
@@ -57,7 +57,8 @@ public class DummyRest {
 	@GET
 	@Path("/testintercept")
 	@Produces(MediaType.APPLICATION_JSON)
-	@CustomValidator(value={TestValidator.class})
+	@CustomValidator(value={AuthorizationValidator.class})
+	@RolesAllowed("ADMIN")
 	public String testIntercept()
 	{
 		return "\"Test is succesfull\"";
