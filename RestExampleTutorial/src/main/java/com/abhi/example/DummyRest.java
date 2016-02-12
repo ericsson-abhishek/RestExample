@@ -8,6 +8,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import com.abhi.example.validator.CustomValidator;
+import com.abhi.example.validator.TestValidator;
 @Path("/rest")
 @RolesAllowed("ADMIN")
 public class DummyRest {
@@ -49,6 +52,15 @@ public class DummyRest {
 	public String greetStr()
 	{
 		return "\"Abhishek\"";
+	}
+	
+	@GET
+	@Path("/testintercept")
+	@Produces(MediaType.APPLICATION_JSON)
+	@CustomValidator(value={TestValidator.class})
+	public String testIntercept()
+	{
+		return "\"Test is succesfull\"";
 	}
 
 }
