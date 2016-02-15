@@ -12,7 +12,6 @@ import javax.ws.rs.core.MediaType;
 import com.abhi.rest.intercept.annotation.CustomValidator;
 import com.abhi.rest.intercept.validator.AuthorizationValidator;
 @Path("/rest")
-//@RolesAllowed("ADMIN")
 public class DummyRestService {
 	
 	@GET
@@ -57,8 +56,8 @@ public class DummyRestService {
 	@GET
 	@Path("/testintercept")
 	@Produces(MediaType.APPLICATION_JSON)
-	@CustomValidator(value={AuthorizationValidator.class})
-	@RolesAllowed("ADMIN")
+	@CustomValidator(value={AuthorizationValidator.class})//has been added to set the security context
+	@RolesAllowed("ADMIN")// method access is restricted for the ADMIN role only
 	public String testIntercept()
 	{
 		return "\"Test is succesfull\"";

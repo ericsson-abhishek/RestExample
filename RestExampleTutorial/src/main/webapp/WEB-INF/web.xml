@@ -3,38 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+
+<!--  SPRING CONFIGURATION -->
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
-	
-	
-	<!-- 
-	By Default RESTEasy precedences are
-	SECURITY
-    HEADER_DECORATOR
-    ENCODER
-    REDIRECT
-    DECODER
-    
-    The following context param registers a custom precedence in RESTEasy Runtime
-	resteasy.interceptor.before.precedence would place our custom precedence HIGHEST_PRECEDENCE before SECURITY
-		 
-	The modified RESTEasy precedences would be
-    HIGHEST_PRECEDENCE
-    SECURITY
-    HEADER_DECORATOR
-    ENCODER
-    REDIRECT
-    DECODER
-    -->
-	<context-param>
-        <param-name>resteasy.interceptor.before.precedence</param-name>
-        <param-value>SECURITY : HIGHEST_PRECEDENCE</param-value>
-    </context-param>
-    
-   
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
@@ -57,13 +32,44 @@
 		<url-pattern>/app</url-pattern>
 	</servlet-mapping> 
 
+<!-- SPRING CONFIGURAITONS END -->
 
-<context-param>
+
+<!-- REST EASY SPECIFIC CONFIGURARIONS START -->	
+
+	<!-- 
+	By Default RESTEasy precedences are
+	SECURITY
+    HEADER_DECORATOR
+    ENCODER
+    REDIRECT
+    DECODER
+    
+    The following context param registers a custom precedence in RESTEasy Runtime
+	resteasy.interceptor.before.precedence would place our custom precedence HIGHEST_PRECEDENCE before SECURITY
+		 
+	The modified RESTEasy precedences would be
+    HIGHEST_PRECEDENCE
+    SECURITY
+    HEADER_DECORATOR
+    ENCODER
+    REDIRECT
+    DECODER
+    
+    This custom priority is required for the interceptors which have to be invoked before SecurityInterceptor provided by RestEasy
+    -->
+	<context-param>
+        <param-name>resteasy.interceptor.before.precedence</param-name>
+        <param-value>SECURITY : HIGHEST_PRECEDENCE</param-value>
+    </context-param>
+
+	<!--  enables JAX-RS annotation scans -->
+	<context-param>
 		<param-name>resteasy.scan</param-name>
 		<param-value>true</param-value>
 	</context-param>
 	
-	<!-- this need same with resteasy servlet url-pattern -->
+	<!-- the following context param is required to enable @RolesAllowed annotation scans by RestEasy runtime -->
 	<context-param>
       <param-name>resteasy.role.based.security</param-name>
       <param-value>true</param-value>
@@ -75,11 +81,7 @@
 		</listener-class>
 	</listener>
 	
-	<!-- <context-param>
-		<param-name>resteasy.servlet.mapping.prefix</param-name>
-		<param-value>/</param-value>
-	</context-param> -->
-	
+	<!-- Rest Easy Servlet -->
 	<servlet>
 		<servlet-name>resteasy-servlet</servlet-name>
 		<servlet-class>
@@ -92,23 +94,5 @@
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 	
-	<!-- <security-constraint>
-         <web-resource-collection>
-             <web-resource-name>rest</web-resource-name>
-             <url-pattern>/rest/*</url-pattern>
-             <http-method>GET</http-method>
-             <http-method>POST</http-method>
-         </web-resource-collection>
-         <auth-constraint>
-             <role-name>ADMIN</role-name> 
-         </auth-constraint>
-    </security-constraint>
-        <login-config>
-            <auth-method>BASIC</auth-method>
-            <realm-name>default</realm-name>
-        </login-config>
-    <security-role>
-        <role-name>ADMIN</role-name>
-    </security-role> -->
-
+<!-- REST EASY SPECIFIC CONFIGURARIONS END -->	
 </web-app>
