@@ -39,7 +39,7 @@ public class CustomAuthorizationInterceptor implements PreProcessInterceptor, Po
 		 {
 			
 			 try {
-				validator.newInstance().validate();
+				validator.newInstance().validate(req);
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.ws.rs.core.SecurityContext;
 
+import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 import com.abhi.rest.security.CustomSecurityContext;
@@ -15,7 +16,7 @@ import com.abhi.rest.security.CustomUser;
  */
 public class AuthorizationValidator implements BaseValidator {
 
-	public void validate()
+	public void validate(HttpRequest req)
 	{
 		// insert your custom code here for fetching the user and roles from Data-store
 		// create the user correspondingly

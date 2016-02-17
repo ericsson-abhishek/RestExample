@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.abhi.rest.intercept.annotation.CustomValidator;
-import com.abhi.rest.intercept.validator.AuthorizationValidator;
+import com.abhi.rest.intercept.validator.HeaderAuthenticationValidator;
 @Path("/rest")
 public class DummyRestService {
 	
@@ -56,7 +56,7 @@ public class DummyRestService {
 	@GET
 	@Path("/testintercept")
 	@Produces(MediaType.APPLICATION_JSON)
-	@CustomValidator(value={AuthorizationValidator.class})//has been added to set the security context
+	@CustomValidator(value={HeaderAuthenticationValidator.class})//has been added to set the security context
 	@RolesAllowed("ADMIN")// method access is restricted for the ADMIN role only
 	public String testIntercept()
 	{
