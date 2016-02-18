@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.abhi.rest.intercept.annotation.CustomValidator;
+import com.abhi.rest.intercept.validator.CertificateValidator;
 import com.abhi.rest.intercept.validator.HeaderAuthenticationValidator;
 @Path("/rest")
 public class DummyRestService {
@@ -61,6 +62,14 @@ public class DummyRestService {
 	public String testIntercept()
 	{
 		return "\"Test is succesfull\"";
+	}
+	
+	@POST
+	@Path("/sendKey")
+	@CustomValidator(value={CertificateValidator.class})
+	public void sendKey(String s)
+	{
+		System.out.println(s);
 	}
 
 }
