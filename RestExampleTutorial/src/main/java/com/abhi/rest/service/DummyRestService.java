@@ -1,5 +1,8 @@
 package com.abhi.rest.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -12,6 +15,9 @@ import javax.ws.rs.core.MediaType;
 import com.abhi.rest.intercept.annotation.CustomValidator;
 import com.abhi.rest.intercept.validator.CertificateValidator;
 import com.abhi.rest.intercept.validator.HeaderAuthenticationValidator;
+
+import om.abhi.rest.resource.EmpList;
+import om.abhi.rest.resource.Employee;
 @Path("/rest")
 public class DummyRestService {
 	
@@ -62,6 +68,23 @@ public class DummyRestService {
 	public String testIntercept()
 	{
 		return "\"Test is succesfull\"";
+	}
+	
+	@GET
+//	@Consumes({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+	@Path("/getEmployees")
+	public List<Employee> getEmployees()
+	//public Employee getEmployees()
+	{
+		Employee emp1  = new Employee("1001","BlaBla");
+		Employee emp2 = new Employee("1002","BlaBlaBla");
+		
+		List<Employee> employees= new ArrayList<Employee>();
+		employees.add(emp1);
+		employees.add(emp2);
+		return employees;
+		
 	}
 	
 	@POST

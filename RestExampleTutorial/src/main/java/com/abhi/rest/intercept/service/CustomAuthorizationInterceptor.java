@@ -22,31 +22,32 @@ import com.abhi.rest.intercept.validator.BaseValidator;
 @Provider
 @HighestPrecedence
 @ServerInterceptor
-public class CustomAuthorizationInterceptor implements PreProcessInterceptor, PostProcessInterceptor{
-	
+public class CustomAuthorizationInterceptor implements PreProcessInterceptor, PostProcessInterceptor {
 
 	@Override
 	public void postProcess(ServerResponse arg0) {
-		
+
 	}
 
 	@Override
 	public ServerResponse preProcess(HttpRequest req, ResourceMethod resourceMethod)
 			throws Failure, WebApplicationException {
 
-		 Class<? extends BaseValidator>[] validators = resourceMethod.getMethod().getAnnotation(CustomValidator.class).value();
-		 for (Class<? extends BaseValidator> validator : validators)
-		 {
-			
-			 try {
-				validator.newInstance().validate(req);
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
+		if (resourceMethod.getMethod().getAnnotation(CustomValidator.class) != null) {
+			Class<? extends BaseValidator>[] validators = resourceMethod.getMethod()
+					.getAnnotation(CustomValidator.class).value();
+			for (Class<? extends BaseValidator> validator : validators) {
+
+				try {
+					validator.newInstance().validate(req);
+				} catch (InstantiationException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				}
+
 			}
-			 
-		 }
+		}
 		return null;
 	}
 
