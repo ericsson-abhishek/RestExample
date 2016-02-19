@@ -16,7 +16,6 @@ import com.abhi.rest.intercept.annotation.CustomValidator;
 import com.abhi.rest.intercept.validator.CertificateValidator;
 import com.abhi.rest.intercept.validator.HeaderAuthenticationValidator;
 
-import om.abhi.rest.resource.EmpList;
 import om.abhi.rest.resource.Employee;
 @Path("/rest")
 public class DummyRestService {
@@ -71,11 +70,9 @@ public class DummyRestService {
 	}
 	
 	@GET
-//	@Consumes({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
 	@Path("/getEmployees")
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Employee> getEmployees()
-	//public Employee getEmployees()
 	{
 		Employee emp1  = new Employee("1001","BlaBla");
 		Employee emp2 = new Employee("1002","BlaBlaBla");

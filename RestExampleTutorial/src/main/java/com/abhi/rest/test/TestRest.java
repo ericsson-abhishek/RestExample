@@ -41,7 +41,7 @@ public class TestRest {
 	public void testWriter() throws ClientProtocolException, IOException {
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet req = new HttpGet("http://localhost:8090/secure-rest/rest/getEmployees");
-		req.setHeader("accept", "application/xml");
+		req.setHeader("accept", "application/json");
 //		req.setHeader("Authorization","Basic "+ Base64.getEncoder().encodeToString("Abhishek:12345".getBytes()));
 		HttpResponse response = client.execute(req);
 		BufferedReader rd = new BufferedReader(
